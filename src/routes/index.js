@@ -1,10 +1,9 @@
 import express from 'express'
-import { getTFTRoutes } from './tftRoutes'
+import { getChampionRoutes } from './tftRoutes'
 
 function getRoutes() {
   const router = express.Router()
-  router.use('/test', getTestRoutes())
-  router.use('/tft', getTFTRoutes())
+  router.use('/tft', getChampionRoutes())
   return router
 }
 
