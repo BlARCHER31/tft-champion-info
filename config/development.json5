@@ -1,0 +1,10 @@
+{
+  app: {
+    server: {
+      port: 8080,
+    },
+  },
+  riot: {
+    apiKey: 'RGAPI-5bf6e704-2d2b-4fea-a103-1b850c02d162'
+  },
+}
