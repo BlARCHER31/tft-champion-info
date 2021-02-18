@@ -1,13 +1,49 @@
 import logger from 'loglevel'
-import config from 'config'
 import axios from 'axios'
 
 class RiotAPiClient { 
+
+  async getChampionInfo(champion) {
+    try{
+      let championInfo = await this.getChampionJsonData(champion)
+      for( let key in championInfo) { 
+          return {
+            championName : key,
+            championTitle: championInfo[key].title,
+            championLore: championInfo[key].lore,
+            championImage: `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion}_0.jpg`,
+          }
+        }
+      } catch(err) {
+          logger.error(`There was a problem getting the Champion's skins: ${err.message}`)
+        }
+    }
+
+    async getChampionSkins(champion){
+      try{
+        let championInfo = await this.getChampionJsonData(champion)
+        for( let key in championInfo) { 
+          return { championSkins: championInfo[key].skins.map(info => {
+            return {
+              skinId: info.id,
+              skinName: info.name,
+              skinNum: info.num,
+              skinLoadingScreen: `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion}_${info.num}.jpg`
+              }
+            })
+          }
+        }
+      } catch(err) {
+        logger.error(`There was a problem getting the Champion's skins: ${err.message}`)
+      }
+
+    }
+
     async getChampionJsonData(champion) {
         let response
         try {
             response = await axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.latestPatchVersion}/data/en_US/champion/${champion}.json`)
-            return this.transformChampionInfo(response.data.data)
+            return response.data.data
         } catch(err) {
             logger.error(`There was a problem getting Champion Info: ${err.message}`)
             throw err
@@ -42,17 +78,7 @@ class RiotAPiClient {
         }
     }
 
-    transformChampionInfo(championInfo) {
-          for( let key in championInfo) {
-            return {
-              championName : key,
-              championTitle: championInfo[key].title,
-              championLore: championInfo[key].lore,
-
-            }
-          }
-        
-    }
+    
 }
 
 export default new RiotAPiClient()
