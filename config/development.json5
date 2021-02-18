@@ -5,6 +5,6 @@
     },
   },
   riot: {
-    apiKey: 'RGAPI-5bf6e704-2d2b-4fea-a103-1b850c02d162'
+    championJSON: "http://ddragon.leagueoflegends.com/cdn/11.3.1/data/en_US/champion.json"
   },
 }

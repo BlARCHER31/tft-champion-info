@@ -1,11 +1,22 @@
 import express from 'express'
+import riotApiClient from '../services/riotApiClient'
 
-function getTFTRoutes() {
+function getChampionRoutes() {
   const router = express.Router()
-  router.get('/v1/summoner/:summonerName', handleGetSummonerInfo)
-  router.get('/v1/match/history/:matchId', handleGetMatchDetail)
-  router.get('/v1/matches/:summonerName', handleGetMatchesForSummoner)
+  router.get('/v1/champion/info/:champion', handleChampionInfo)
   return router
 }
 
-export {getTFTRoutes}
+async function handleChampionInfo(req, res) {
+    
+    
+    try {
+        let championInfo = await riotApiClient.getChampionJsonData(req.params.champion)
+        res.send(championInfo)
+    } catch (e) {
+        return res.status(500).send(e.message)
+    }
+}
+
+
+export {getChampionRoutes}

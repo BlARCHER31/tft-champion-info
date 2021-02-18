@@ -12,9 +12,9 @@ function startServer({ port = process.env.PORT } = {}) {
 
 //   app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
-//   app.use('/api', getRoutes())
+  app.use('/api', getRoutes())
 
-//   app.use(errorMiddleware)
+  app.use(errorMiddleware)
 
 
   return new Promise((resolve) => {
