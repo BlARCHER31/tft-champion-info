@@ -3,11 +3,11 @@ import config from 'config'
 import axios from 'axios'
 
 class RiotAPiClient { 
-    async getChampionJsonData() {
+    async getChampionJsonData(champion) {
         let response
         try {
-            response = await axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.latestPatchVersion}/data/en_US/champion.json`)
-            return response.data
+            response = await axios.get(`http://ddragon.leagueoflegends.com/cdn/${this.latestPatchVersion}/data/en_US/champion/${champion}.json`)
+            return this.transformChampionInfo(response.data.data)
         } catch(err) {
             logger.error(`There was a problem getting Champion Info: ${err.message}`)
             throw err
@@ -40,6 +40,18 @@ class RiotAPiClient {
         )
         throw err
         }
+    }
+
+    transformChampionInfo(championInfo) {
+          for( let key in championInfo) {
+            return {
+              championName : key,
+              championTitle: championInfo[key].title,
+              championLore: championInfo[key].lore,
+
+            }
+          }
+        
     }
 }
 
