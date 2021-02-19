@@ -1,0 +1,60 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "TFT Stats API",
+      "description": "API for summoner and match info for Team Fight Tactics.",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "schemes": ["http"],
+    "paths": {
+        "/api/tft/v1/champion/info/{champion}": {
+            "get": {
+              "summary": "Returns a list of recent matches.",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "champion",
+                  "required": true,
+                  "type:": "string",
+                  "minimum": 1,
+                  "description": "champion name"
+                }
+              ],
+              "produces": ["application/json"],
+              "responses": {
+                "200": {
+                  "description": "Champion Info Retrieved Successfully."
+                }
+              }
+            }
+          },
+      "/api/tft/v1/champion/skins/{champion}": {
+        "get": {
+          "summary": "Returns information about the requested champion's various skins.",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "champion",
+              "required": true,
+              "type:": "string",
+              "minimum": 1,
+              "description": "chammpion name"
+            }
+          ],
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "Champion Skins Retrieved Successfully."
+            }
+          }
+        }
+      }
+    }
+}
+  
